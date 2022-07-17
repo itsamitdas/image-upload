@@ -11,12 +11,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ImageController extends Controller
 {
-    public function imageStore(ImageStoreRequest $request)
+    public function imageStore(Request $request)
     {
+        $this->validate($request, [
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+        ]);
+        $image_path = $request->file('image')->store('image', 'public');
 
-        $validatedData = $request->validated();
-        $validatedData['image'] = $request->file('image')->store('image');
-        $data = Image::create($validatedData);
+        $data = Image::create([
+            'image' => $image_path,
+        ]);
 
         return response($data, Response::HTTP_CREATED);
     }

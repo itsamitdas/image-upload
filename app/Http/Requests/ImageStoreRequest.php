@@ -22,7 +22,7 @@ class ImageStoreRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
-    {
+    {    
         return [
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
         ];
