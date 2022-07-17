@@ -30,8 +30,6 @@ class ImageController extends Controller
     {
         $image = Image::find($id);
         $uploadedImage = $image->image;
-        //$image_path = asset("storage/images/{$uploadedImage}");
-        //unlink($image_path);
         unlink(public_path('storage'). DIRECTORY_SEPARATOR .$uploadedImage);
         $this->validate($request, [
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
@@ -42,5 +40,22 @@ class ImageController extends Controller
         $image->save();
 
         return response($image, Response::HTTP_OK);
+    }
+
+    public function images()
+    {
+        $image = Image::get();
+        return response($image, Response::HTTP_OK);
+    }
+
+    
+    public function delete($id)
+    {
+        $image = Image::find($id);
+        $uploadedImage = $image->image;
+        unlink(public_path('storage'). DIRECTORY_SEPARATOR .$uploadedImage);
+        
+        $image = Image::destroy($id);
+        return response(["message" => "Data deleted successfully"], Response::HTTP_OK);
     }
 }

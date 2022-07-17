@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('image',[ApiImageController::class, 'imageStore']);
 Route::post('imageUpdate/{id}',[ApiImageController::class, 'imageUpdate']);
+Route::get('images',[ApiImageController::class, 'images']);
+Route::delete('imageDelete/{id}',[ApiImageController::class, 'delete']);
